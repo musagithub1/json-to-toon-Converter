@@ -1,0 +1,18 @@
+services:
+  backend:
+    image: musagithub1/json-to-toon-converter-backend:latest
+    container_name: json-to-toon-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ALLOW_ORIGINS=http://localhost:8080
+    restart: unless-stopped
+
+  frontend:
+    image: musagithub1/json-to-toon-converter-frontend:latest
+    container_name: json-to-toon-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

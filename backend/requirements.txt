@@ -3,3 +3,5 @@ uvicorn
 orjson
 python-toon
 python-multipart
+python-multipart
+pydantic
