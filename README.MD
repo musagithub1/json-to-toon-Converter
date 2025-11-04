@@ -1,210 +1,238 @@
-# 🪄 JSON ⇄ TOON Converter
+# 🎨 JSON to Toon Converter
 
-A full-stack open-source app that converts between **JSON** and **TOON** formats.  
-Built with **FastAPI (Python)** for the backend and **React + Tailwind (Vite)** for the frontend.  
-Supports upload, live preview, and download of both file types.
-
----
-
-## 🌍 Repository
-
-**GitHub:** [https://github.com/musagithub1/json-to-toon-Converter](https://github.com/musagithub1/json-to-toon-Converter)
+Convert structured JSON data into visually styled **"Toon" panels** using FastAPI (backend) and React + Tailwind + Shadcn/UI (frontend).  
+The app lets users upload JSON files, process them via an API, and preview/download beautiful visual outputs.
 
 ---
 
-## 📁 Project Structure
+## 🧑‍💻 Author
 
+**Mussa Khan**  
+📦 GitHub: [musagithub1/json-to-toon-Converter](https://github.com/musagithub1/json-to-toon-Converter)
+
+---
+
+## 🏗️ Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| **Frontend** | React (Vite + TypeScript), TailwindCSS, Shadcn/UI |
+| **Backend** | FastAPI (Python) |
+| **Containerization** | Docker + Docker Compose |
+| **Deployment Ready** | Local, Docker Hub, and Production Compose |
+
+---
+
+## 🚀 Features
+
+✅ Upload any JSON file  
+✅ Convert to "Toon" (custom data representation)  
+✅ Instant visualization via React UI  
+✅ REST API powered by FastAPI  
+✅ Containerized frontend/backend for easy deployment  
+✅ Works on Linux, macOS, or Windows (via Docker)
+
+---
+
+## 📂 Project Structure
+
+```
 json-to-toon-Converter/
 ├── backend/
-│ ├── json_to_toon.py # Core conversion logic (JSON ⇄ TOON)
-│ ├── server.py # FastAPI backend server
-│ ├── sample.json # Example JSON for testing
-│ └── requirements.txt
-└── frontend/
-├── src/App.tsx
-├── src/main.tsx
-├── src/index.css
-├── index.html
-├── package.json
-├── tailwind.config.js
-├── postcss.config.js
-└── .env
-
-yaml
-Copy code
+│   ├── server.py
+│   ├── json_to_toon.py
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── .dockerignore
+│
+├── frontend/
+│   ├── src/
+│   │   └── App.tsx
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── .dockerignore
+│
+├── docker-compose.yml
+├── docker-compose.prod.yml
+├── sample.json
+├── .gitignore
+└── README.md
+```
 
 ---
 
-## ⚙️ Backend Setup (FastAPI)
+## 🧪 Sample JSON
 
-### 1️⃣ Create Virtual Environment
+You can test the converter with this file:
+
+```json
+{
+  "title": "Sample Toon Scene",
+  "characters": [
+    { "name": "Alice", "role": "hero", "color": "blue" },
+    { "name": "Bob", "role": "villain", "color": "red" }
+  ],
+  "dialogues": [
+    { "speaker": "Alice", "text": "I will save the city!" },
+    { "speaker": "Bob", "text": "Not if I stop you first!" }
+  ]
+}
+```
+
+Save it as `sample.json` and upload it through the UI.
+
+---
+
+## ⚙️ Local Development (Ubuntu/Linux)
+
+### 🧱 1. Clone Repo
+
 ```bash
-cd ~/Desktop/json-to-toon-Converter/backend
+git clone https://github.com/musagithub1/json-to-toon-Converter.git
+cd json-to-toon-Converter
+```
+
+### 🐍 2. Backend Setup
+
+```bash
+cd backend
 python3 -m venv myenv
 source myenv/bin/activate
-2️⃣ Install Dependencies
-bash
-Copy code
-pip install --upgrade pip
 pip install -r requirements.txt
-If you see:
+uvicorn server:app --reload
+```
 
-vbnet
-Copy code
-RuntimeError: Form data requires "python-multipart" to be installed.
-Run:
+Backend will run on → `http://127.0.0.1:8000`
 
-bash
-Copy code
-pip install python-multipart
-3️⃣ Run Backend
-bash
-Copy code
-uvicorn server:app --reload --port 8000
-✅ API should now be live at:
-👉 http://localhost:8000
+### 🖥️ 3. Frontend Setup
 
-⚛️ Frontend Setup (React + Vite + Tailwind)
-1️⃣ Install Node Dependencies
-bash
-Copy code
-cd ~/Desktop/json-to-toon-Converter/frontend
+```bash
+cd ../frontend
 npm install
-2️⃣ Set API Endpoint
-Check .env:
-
-ini
-Copy code
-VITE_API_BASE=http://localhost:8000
-3️⃣ Start Dev Server
-bash
-Copy code
 npm run dev
-✅ App available at:
-👉 http://localhost:5173
+```
 
-🧪 Example Data for Testing
-JSON → TOON
-sample_flat.json
+Frontend will run on → `http://localhost:5173`
 
-json
-Copy code
-{
-  "name": "Titanic Passengers",
-  "count": 5,
-  "passengers": [
-    { "PassengerId": 1, "Name": "Owen Harris", "Sex": "male", "Age": 22 },
-    { "PassengerId": 2, "Name": "Florence Briggs", "Sex": "female", "Age": 38 }
-  ]
-}
-Output (TOON):
+---
 
-makefile
-Copy code
-name: Titanic Passengers
-count: 2
-passengers[2,]{PassengerId,Name,Sex,Age}:
-  1,"Owen Harris",male,22
-  2,"Florence Briggs",female,38
-TOON → JSON
-sample_simple.toon
+## 🐳 Docker Setup
 
-makefile
-Copy code
-name: Simple People
-count: 3
-people[3,]{id,name,age,city}:
-  1,"Alice",30,Karachi
-  2,"Bob",28,Lahore
-  3,"Chand",null,Islamabad
-Output (JSON):
+### 🧩 1. Build and Run (Local)
 
-json
-Copy code
-{
-  "name": "Simple People",
-  "count": 3,
-  "people": [
-    {"id": 1, "name": "Alice", "age": 30, "city": "Karachi"},
-    {"id": 2, "name": "Bob", "age": 28, "city": "Lahore"},
-    {"id": 3, "name": "Chand", "age": null, "city": "Islamabad"}
-  ]
-}
-🧩 CLI Usage
-bash
-Copy code
-# JSON → TOON
-python json_to_toon.py sample.json --root passengers -o output.toon --indent 2 --length-marker --coerce
+```bash
+docker compose up --build
+```
 
-# TOON → JSON
-python json_to_toon.py output.toon --mode toon2json --pretty -o result.json
-🌐 API Usage via cURL
-JSON → TOON
-bash
-Copy code
-curl -X POST -F "mode=json2toon" -F "root=passengers" -F "file=@sample.json" http://localhost:8000/api/convert
-TOON → JSON
-bash
-Copy code
-curl -X POST -F "mode=toon2json" -F "file=@sample_simple.toon" http://localhost:8000/api/convert
-🧱 Optional: Auto-Start Backend (Systemd)
-bash
-Copy code
-sudo nano /etc/systemd/system/json-to-toon.service
-Paste:
+### 🌐 2. Production (Pre-built images from Docker Hub)
 
-ini
-Copy code
-[Unit]
-Description=JSON TOON Converter API
-After=network.target
+```bash
+docker compose -f docker-compose.prod.yml pull
+docker compose -f docker-compose.prod.yml up -d
+```
 
-[Service]
-WorkingDirectory=/home/<youruser>/Desktop/json-to-toon-Converter/backend
-Environment="PATH=/home/<youruser>/Desktop/json-to-toon-Converter/backend/myenv/bin"
-ExecStart=/home/<youruser>/Desktop/json-to-toon-Converter/backend/myenv/bin/uvicorn server:app --host 0.0.0.0 --port 8000
-Restart=always
-User=<youruser>
+**Access:**
+- Frontend → `http://localhost:8080`
+- Backend → `http://localhost:8000/docs`
 
-[Install]
-WantedBy=multi-user.target
-Enable it:
+### 🧯 Stop Containers
 
-bash
-Copy code
-sudo systemctl daemon-reload
-sudo systemctl enable --now json-to-toon
-🚀 Build for Production
-Frontend
-bash
-Copy code
-cd frontend
-npm run build
-npm run preview
-Serve the built dist/ folder via Nginx, Netlify, or Vercel.
-Proxy /api/convert → http://localhost:8000.
+```bash
+docker compose down
+```
 
-🧠 Troubleshooting
-Problem	Fix
-Missing index.css	Create frontend/src/index.css with Tailwind directives
-python-multipart missing	Run pip install python-multipart
-Port already in use	Use --port 8010
-CORS error	Already allowed via FastAPI config
-Node too old	Install Node 20: curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt install -y nodejs
+or for production:
 
-🧪 Sample Files
-Type	File	Description
-JSON	sample_flat.json	Titanic dataset
-JSON	sample_nested.json	Nested orders dataset
-TOON	sample_simple.toon	People dataset
-TOON	sample_types.toon	Mixed datatypes demo
+```bash
+docker compose -f docker-compose.prod.yml down
+```
 
-💡 Author
-Mussa Khan
-Developer & Creator of JSON ⇄ TOON Converter
-📧 Email: raja.musa.khan035@gmail.com
-🌐 GitHub: @musagithub1
+---
 
-⭐ If you like this project
-Please consider giving it a star on GitHub ⭐
+## 🧰 How to Run on Another System (Friend's Computer)
+
+1. **Install Docker.**
+2. **Create a folder with this file inside:** `docker-compose.yml`:
+
+```yaml
+services:
+  backend:
+    image: musagithub1/json-to-toon-converter-backend:latest
+    ports:
+      - "8000:8000"
+
+  frontend:
+    image: musagithub1/json-to-toon-converter-frontend:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+```
+
+3. **Run:**
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+4. **Visit:**
+   - Frontend → `http://localhost:8080`
+   - API Docs → `http://localhost:8000/docs`
+
+**Stop anytime:**
+
+```bash
+docker compose down
+```
+
+---
+
+## 🧾 .gitignore Highlights
+
+```
+myenv/
+__pycache__/
+node_modules/
+.env
+*.log
+*.pyc
+*.pyo
+.DS_Store
+```
+
+---
+
+## 🧠 Tips & Troubleshooting
+
+- **Frontend not connecting?** → Ensure ports 8080 (frontend) & 8000 (backend) are free.
+- **Want to update to latest build?**
+
+```bash
+docker compose pull && docker compose up -d
+```
+
+- **Check running containers:**
+
+```bash
+docker ps
+```
+
+---
+
+## 📜 License
+
+MIT License © 2025 Mussa Khan
+
+---
+
+## 💬 Support
+
+If you find this useful, consider ⭐ starring the repo:  
 👉 https://github.com/musagithub1/json-to-toon-Converter
+
+---
+
+**Would you like me to also generate a GitHub Actions workflow file (`.github/workflows/docker.yml`) so your repo automatically builds and pushes your Docker images (`frontend` + `backend`) on each tag or push?**
