@@ -1,0 +1,122 @@
+# -----------------------------
+# Root / common
+# -----------------------------
+.DS_Store
+Thumbs.db
+*.log
+logs/
+*.swp
+*.swo
+.tmp/
+.temp/
+.cache/
+.idea/
+.vscode/
+*.code-workspace
+
+# Python version file (pyenv)
+.python-version
+
+# Environment files (both backend & frontend)
+.env
+.env.*
+!.env.example
+
+# -----------------------------
+# Backend (Python / FastAPI)
+# -----------------------------
+backend/__pycache__/
+backend/**/*.py[cod]
+*.py[cod]
+*$py.class
+
+# Virtual environments
+# (Commented out so myenv/ is included in repo)
+# venv/
+# .venv/
+# env/
+# .env/
+# backend/venv/
+# backend/.venv/
+# backend/env/
+# backend/myenv/
+
+# Packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Python caches & tooling
+.pytest_cache/
+coverage.xml
+htmlcov/
+.coverage
+.coverage.*
+.mypy_cache/
+.pyre/
+.pytype/
+.tox/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Uvicorn / gunicorn artifacts
+uvicorn*.log
+gunicorn*.log
+
+# SQLite or other local DBs (if any)
+*.sqlite3
+*.db
+
+# OS-specific
+backend/.DS_Store
+
+# -----------------------------
+# Frontend (React / Vite / Tailwind)
+# -----------------------------
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.cache/
+frontend/.parcel-cache/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/.eslintcache
+frontend/.stylelintcache
+frontend/.tailwind-cache/
+
+# Keep lockfiles for reproducible builds
+# (Do NOT ignore package-lock.json)
+# package-lock.json
+# pnpm-lock.yaml
+# yarn.lock
+
+# Local env for frontend
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# OS-specific
+frontend/.DS_Store
+
+# -----------------------------
+# Misc / tooling
+# -----------------------------
+.editorconfig.cache
+docker-compose.override.yml
+
+# -----------------------------
+# Sample outputs
+# -----------------------------
+*.toon
+*.out.json
+
+# -----------------------------
+# Backups
+# -----------------------------
+*.bak
+*.backup
+*~

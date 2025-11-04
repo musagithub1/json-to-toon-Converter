@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+orjson
+python-toon
+python-multipart
