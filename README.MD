@@ -235,4 +235,3 @@ If you find this useful, consider ⭐ starring the repo:
 
 ---
 
-**Would you like me to also generate a GitHub Actions workflow file (`.github/workflows/docker.yml`) so your repo automatically builds and pushes your Docker images (`frontend` + `backend`) on each tag or push?**
